@@ -1,0 +1,52 @@
+services:
+  # 1. Zookeeper (Gestion des métadonnées de Kafka)
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.4.0
+    container_name: zookeeper
+    restart: always
+    ports:
+      # Port client Zookeeper
+      - "2181:2181"
+    environment:
+      # Configuration Zookeeper standard pour un seul nœud
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  # 2. Kafka Broker (Le cœur du système de streaming)
+  kafka:
+    image: confluentinc/cp-kafka:7.4.0
+    container_name: kafka
+    restart: always
+    ports:
+      # Port pour l'accès externe des Producers/Consumers (vos scripts Python)
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    environment:
+      # Identification du broker
+      KAFKA_BROKER_ID: 1
+      # IMPORTANT : Configuration des listeners
+      # PLAINTEXT://kafka:29092 (Listener interne, pour kafka-ui et autres services internes)
+      # PLAINTEXT_HOST://localhost:9092 (Listener externe, pour vos scripts Python)
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      # Connexion à Zookeeper (utilise le nom du service Docker : zookeeper)
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+
+  # 3. Kafka UI (Interface web d'administration pour visualiser les topics et messages)
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    restart: always
+    ports:
+      # Accès à l'interface via le port 8080 de votre machine
+      - "8080:8080"
+    depends_on:
+      - kafka
+    environment:
+      # L'interface se connecte au Kafka via son adresse INTERNE (kafka:29092)
+      KAFKA_CLUSTERS_0_NAME: KafkaCluster
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
