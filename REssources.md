@@ -88,4 +88,10 @@ Il faut aussi vérifier que vous avez assez de parallélisme.
 * Avec 30 machines à 16 cœurs = 480 cœurs totaux.
 * $7800 / 480 = 16$ vagues de tâches. C'est un ratio très sain.
 ## Pour TD Kafka
+
+```bash
 pip install kafka-python
+
+docker compose up 
+```
+Dans le répertoire TD Kafka
