@@ -21,25 +21,28 @@ consumer = KafkaConsumer(
 )
 
 print(f"👂 Consommateur démarré. Écoute sur le topic '{TOPIC_NAME}'...")
-print("=" * 70)
+
+
+for message in consumer:
+    print(f"Message brut reçu : {message.value}")
 
 # Traitement des messages en continu
-for message in consumer:
-    event = message.value
-    dv_id = event['id']
-    new_state = event['etat']
+# for message in consumer:
+#     event = message.value
+#     dv_id = event['id']
+#     new_state = event['etat']
     
-    # 1. Mise à jour de l'état central
-    current_states[dv_id] = new_state
+#     # 1. Mise à jour de l'état central
+#     current_states[dv_id] = new_state
     
-    # 2. Affichage de l'événement reçu
-    print(f"*** Événement Reçu ***")
-    print(f"| ID: {dv_id}")
-    print(f"| NOUVEL ÉTAT: {new_state}")
-    print(f"| Détails : {event['details']}")
+#     # 2. Affichage de l'événement reçu
+#     print(f"*** Événement Reçu ***")
+#     print(f"| ID: {dv_id}")
+#     print(f"| NOUVEL ÉTAT: {new_state}")
+#     print(f"| Détails : {event['details']}")
     
-    # 3. Affichage du Tableau de bord (l'état actuel de tous les DV)
-    print("\n--- Tableau de Bord des DV (États Actuels) : ---")
-    for id, state in current_states.items():
-        print(f"   [ {id} ] est actuellement : {state}")
-    print("=" * 70)
+#     # 3. Affichage du Tableau de bord (l'état actuel de tous les DV)
+#     print("\n--- Tableau de Bord des DV (États Actuels) : ---")
+#     for id, state in current_states.items():
+#         print(f"   [ {id} ] est actuellement : {state}")
+#     print("=" * 70)
