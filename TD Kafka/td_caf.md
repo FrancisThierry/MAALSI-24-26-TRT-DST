@@ -86,4 +86,27 @@ $$
 | *--OU--* | | | | |
 | DOSSIER\_PRINCIPAL\_REFUSE | REFUSE | EN\_COURS | **REFUSEE** | **Rejet immédiat.** Publication sur `alertes-rejet`. |
 
-## Conclusion
+## Adapter le programme
+Adapter le programme pour recevoir en entrée, un fichier csv et en sortie un fichier csv également.
+
+id_utilisateur,type_evenement,statut
+user_003,INITIALISATION,EN_COURS
+user_003,SOCIAL,ACCEPTE
+user_003,KYC,ACCEPTE
+user_004,INITIALISATION,EN_COURS
+user_004,SOCIAL,REFUSE
+user_004,KYC,ACCEPTE
+user_005,INITIALISATION,EN_COURS
+user_005,SOCIAL,ACCEPTE
+user_005,KYC,REFUSE
+user_006,INITIALISATION,EN_COURS
+user_006,SOCIAL,ACCEPTE
+user_006,KYC,ACCEPTE
+user_007,INITIALISATION,EN_COURS
+user_007,SOCIAL,REFUSE
+user_008,INITIALISATION,EN_COURS
+user_008,SOCIAL,ACCEPTE
+user_008,KYC,ACCEPTE
+user_009,INITIALISATION,EN_COURS
+user_009,SOCIAL,EN_COURS
+user_010,KYC,REFUSE
