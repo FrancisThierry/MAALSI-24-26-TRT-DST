@@ -89,6 +89,8 @@ $$
 ## Adapter le programme
 Adapter le programme pour recevoir en entrée, un fichier csv et en sortie un fichier csv également.
 
+```csv
+
 id_utilisateur,type_evenement,statut
 user_003,INITIALISATION,EN_COURS
 user_003,SOCIAL,ACCEPTE
@@ -110,3 +112,4 @@ user_008,KYC,ACCEPTE
 user_009,INITIALISATION,EN_COURS
 user_009,SOCIAL,EN_COURS
 user_010,KYC,REFUSE
+```
